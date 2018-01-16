@@ -1,4 +1,3 @@
-var $saveBtn = $('.save-btn');
 var $card = $('.card');
 var $ideaTitle = $('#idea-title');
 var $ideaBody = $('#idea-info');
@@ -12,30 +11,28 @@ var IndexCard = function (title, body, id) {
   this.id = id || Date.now();
 };
 
-$saveBtn.on('click', clickSave);
+$('.save-btn').on('click', clickSave);
 $('.bottom-container').on('click', '.up-vote', upVote);
 $('.bottom-container').on('click', '.down-vote', downVote);
 $ideaBody.on('input', saveBtnOn);
 $('.search').on('keyup', runSearch);
 
 populateIndexCardArray();
-populateDOM();
+// populateDOM();
 
 function populateIndexCardArray() {
-  var objectKeys = Object.keys(localStorage);
-  objectKeys.forEach(function (uniqueId) {
-    indexCardArray.push(JSON.parse(localStorage[uniqueId]));
-  });
+  const objectKeys = Object.keys(localStorage);
+  const toDisplay = objectKeys.map(uniqueId => JSON.parse(localStorage[uniqueId]));
+
+  populateDOM(toDisplay)
 }
 
-function populateDOM() {
-  for (var i = 0; i < indexCardArray.length; i++) {
-    build(indexCardArray[i]);
-  }
+function populateDOM(toDisplay) {
+  toDisplay.forEach(item => build(item))
 }
 
 function saveBtnOn() {
-  $saveBtn.attr('disabled', false);
+  $('.save-btn').attr('disabled', false);
 }
 
 function clickSave (e) {
@@ -47,7 +44,7 @@ function clickSave (e) {
   indexCardArray.push(newIndexCard);
   addIndexCardToLocalStorage(newIndexCard);
   clearInputFields();
-};
+}
 
 function build(newIndexCard) {
   var newTitle = newIndexCard.title;
@@ -76,7 +73,7 @@ function addIndexCardToLocalStorage(newIndexCard) {
 function clearInputFields() {
   $ideaTitle.val('');
   $ideaBody.val('');
-  $saveBtn.attr('disabled', true);
+  $('.save-btn').attr('disabled', true);
 }
 
 $('.bottom-container').on('click', '.delete', function () {
