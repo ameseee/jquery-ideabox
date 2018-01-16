@@ -1,0 +1,29 @@
+{
+  "name": "Ideabox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnmboudreaux/Ideabox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnmboudreaux/Ideabox/issues"
+  },
+  "homepage": "https://github.com/johnmboudreaux/Ideabox#readme",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-react": "^7.5.1"
+  },
+  "dependencies": {
+    "eslint-config-airbnb": "^16.1.0"
+  }
+}
