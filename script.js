@@ -1,10 +1,10 @@
-var $card = $('.card');
-var $ideaTitle = $('#idea-title');
-var $ideaBody = $('#idea-info');
-var $qualityText;
-var indexCardArray = [];
+const $card = $('.card');
+const $ideaTitle = $('#idea-title');
+const $ideaBody = $('#idea-info');
+let $qualityText;
+const indexCardArray = [];
 
-var IndexCard = function (title, body, id) {
+const IndexCard = function (title, body, id) {
   this.title = title;
   this.body = body;
   this.quality = 'swill';
@@ -24,7 +24,7 @@ function populateIndexCardArray() {
   const objectKeys = Object.keys(localStorage);
   const toDisplay = objectKeys.map(uniqueId => JSON.parse(localStorage[uniqueId]));
 
-  populateDOM(toDisplay)
+  populateDOM(toDisplay);
 }
 
 function populateDOM(toDisplay) {
@@ -37,9 +37,9 @@ function saveBtnOn() {
 
 function clickSave (e) {
   e.preventDefault();
-  var title = $ideaTitle.val();
-  var body = $ideaBody.val();
-  var newIndexCard = new IndexCard(title, body);
+  let title = $ideaTitle.val();
+  let body = $ideaBody.val();
+  let newIndexCard = new IndexCard(title, body);
   build(newIndexCard);
   indexCardArray.push(newIndexCard);
   addIndexCardToLocalStorage(newIndexCard);
@@ -47,10 +47,10 @@ function clickSave (e) {
 }
 
 function build(newIndexCard) {
-  var newTitle = newIndexCard.title;
-  var newBody = newIndexCard.body;
-  var newQuality = newIndexCard.quality;
-  var newId = newIndexCard.id;
+  let newTitle = newIndexCard.title;
+  let newBody = newIndexCard.body;
+  let newQuality = newIndexCard.quality;
+  let newId = newIndexCard.id;
   $('.bottom-container').prepend(
     `<article id="${newId}" class="card">
      <h3 class="card-title" contenteditable="true">${newTitle}</h3>
@@ -66,7 +66,7 @@ function build(newIndexCard) {
 }
 
 function addIndexCardToLocalStorage(newIndexCard) {
-  var stringifiedIndexCard = JSON.stringify(newIndexCard);
+  let stringifiedIndexCard = JSON.stringify(newIndexCard);
   localStorage.setItem(newIndexCard.id, stringifiedIndexCard);
 }
 
@@ -82,9 +82,9 @@ $('.bottom-container').on('click', '.delete', function () {
 });
 
 function downVote() {
-  var $changeQuality = $(this).parent().find('span').text();
-  var id = $(this).parent().prop('id');
-  var specificCard = JSON.parse(localStorage.getItem(id));
+  let $changeQuality = $(this).parent().find('span').text();
+  let id = $(this).parent().prop('id');
+  let specificCard = JSON.parse(localStorage.getItem(id));
   if ($changeQuality === 'genius') {
     $(this).parent().find('span').text('plausible');
     specificCard.quality = 'plausible';
@@ -97,9 +97,9 @@ function downVote() {
 }
 
 function upVote() {
-  var $changeQuality = $(this).parent().find('span').text();
-  var id = $(this).parent().prop('id');
-  var specificCard = JSON.parse(localStorage.getItem(id));
+  let $changeQuality = $(this).parent().find('span').text();
+  let id = $(this).parent().prop('id');
+  let specificCard = JSON.parse(localStorage.getItem(id));
   if ($changeQuality === 'swill') {
     $(this).parent().find('span').text('plausible');
     specificCard.quality = 'plausible';
@@ -112,28 +112,28 @@ function upVote() {
 }
 
 function updateBody() {
-  var $updatedBody = $(this).parent().find('.card-text').text();
-  var id = $(this).parent().prop('id');
-  var specificCard = JSON.parse(localStorage.getItem(id));
+  let $updatedBody = $(this).parent().find('.card-text').text();
+  let id = $(this).parent().prop('id');
+  let specificCard = JSON.parse(localStorage.getItem(id));
   specificCard.body = $updatedBody;
   localStorage.setItem(id, JSON.stringify(specificCard));
 }
 
 function updateTitle() {
-  var $updatedTitle = $(this).parent().find('h3').text();
-  var id = $(this).parent().prop('id');
-  var specificCard = JSON.parse(localStorage.getItem(id));
+  let $updatedTitle = $(this).parent().find('h3').text();
+  let id = $(this).parent().prop('id');
+  let specificCard = JSON.parse(localStorage.getItem(id));
   specificCard.title = $updatedTitle;
   localStorage.setItem(id, JSON.stringify(specificCard));
 }
 
 function runSearch() {
-  var search = $(this).val().toUpperCase();
-  var searchedArray = indexCardArray.filter(function (newIndexCard) {
+  let search = $(this).val().toUpperCase();
+  let searchedArray = indexCardArray.filter(function (newIndexCard) {
     return newIndexCard.title.toUpperCase().includes(search) || newIndexCard.body.toUpperCase().includes(search);
   });
   $('.bottom-container').empty();
-  for (var i = 0; i < searchedArray.length; i++) {
+  for (let i = 0; i < searchedArray.length; i++) {
     build(searchedArray[i]);
   }
 }
